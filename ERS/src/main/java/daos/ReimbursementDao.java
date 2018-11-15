@@ -25,11 +25,11 @@ public interface ReimbursementDao {
 	 * @param reimbID the ID of the reimbursement to approve
 	 * @return true if database operation completed, false otherwise
 	 */
-	public boolean approveReimbursement(int reimbID);
+	public boolean approveReimbursement(int reimbID, int resolverID);
 	/**
 	 * Denies the reimbursement with the given ID.
 	 * @param reimbID the ID of the reimbursement to deny
 	 * @return true if database operation completed, false otherwise
 	 */
-	public boolean denyReimbursement(int reimbID);
+	public boolean denyReimbursement(int reimbID, int resolverID);
 }

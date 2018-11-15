@@ -1,0 +1,43 @@
+#holder {
+    
+    max-width: 600px;
+    margin-top: 40px;
+}
+#innerholder {
+    height:80px;
+    max-width:568px;
+}
+
+#table0 {
+    background-color: #cccccc;
+    border: 1px solid black;
+}
+
+#t-header {
+    width:350px;
+    text-align: center;
+}
+
+.c1 {
+    width:50px;
+}
+
+#table {
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+#form-signin {
+    min-width: 250px;
+}
+
+.outercell {
+    border: 0px solid black;
+}

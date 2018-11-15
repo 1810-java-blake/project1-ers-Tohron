@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import beans.User;
+import database.ConnectionUtil;
 
-public class UsersDaoImpl implements UsersDao {
+public class UsersDaoJdbc implements UsersDao {
 
 	public String getFirstName(int userId) {
 		// TODO Auto-generated method stub
@@ -25,8 +26,21 @@ public class UsersDaoImpl implements UsersDao {
 		return null;
 	}
 
-	public boolean verifyLogin(String username, String password) {
-		// TODO Auto-generated method stub
+	public boolean verifyLogin(String username, String password, int role_id) {
+		String query = "SELECT ers_password, user_role_id FROM users WHERE username = ?";
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, username);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				if (password.equals(rs.getString("ers_password")) && role_id == rs.getInt("user_role_id")) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 

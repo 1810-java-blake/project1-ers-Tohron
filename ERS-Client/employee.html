@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Employee Reimbursement Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="table.css" />
+    <script src="employee.js"></script>
+</head>
+<body>
+    <table id="content_table">
+    <td id="holder" class="outercell">
+        <table id="table0">
+                <col width="60px">
+                <col width="120px">
+                <col width="120px">
+                <col width="120px">
+                <col width="120px">
+            <thead id="t-header0"><td>Amount</td> <td>Type</td> <td>Submitted</td> <td>Resolved</td> <td>Status</td></thead>
+        </table>
+        <div id="innerholder" style="overflow-y:auto;">
+            <table id="table">
+                <col width="80px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <tr id="r1" onclick="clickHandler(event, 'r1')">
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr id="r2" onclick="clickHandler(event, 'r2')">
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+                <tr>
+                    <td class="c1">LineA</td>  <td>LineB</td> <td>LineC</td> <td>LineD</td> <td>LineD</td>
+                </tr>
+            </table>
+        </div>
+    </td>
+
+    <td id="reimb-info" class="outercell">
+        <!-- The buttons and fields on this form must be enabled/disabled based on whether create/cancel reimbursement is pressed -->
+        <form id="form-signin" onsubmit="login(event)">
+            TITLE
+        </form>
+    </td>
+    </table>
+</body>
+</html>
