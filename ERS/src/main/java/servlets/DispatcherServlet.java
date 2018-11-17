@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.GlobalData;
+
 /**
  * Responds to request to show past reimbursements,
  * receives new reimbursement requests, and updates
@@ -37,6 +39,7 @@ public class DispatcherServlet extends HttpServlet {
 		
 		loggedEmployees = new  HashMap<String, String>();
 		loggedFManagers = new  HashMap<String, String>();
+		GlobalData.getImplementation();
 	}
 	
 	@Override
@@ -49,14 +52,16 @@ public class DispatcherServlet extends HttpServlet {
 		resp.setContentType("application/json");
 		//String session = req.getSession().getId();
 		
+		
 		String uri = req.getRequestURI();
 		String context = "ERS";
 		uri = uri.substring(context.length() + 2, uri.length());
 		//log.debug("request made with uri: " + uri);
+		System.out.println("Received request with uri:" + uri);
 		if (uri.startsWith("employee")) {
-			
+			ec.process(req, resp);
 		} else if (uri.startsWith("finance")) {
-			
+			fc.process(req, resp);
 		} else if (uri.startsWith("login")) {
 			lc.process(req, resp, loggedEmployees, loggedFManagers);
 		} else {

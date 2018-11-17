@@ -15,8 +15,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import daos.UsersDao;
-import database.GlobalData;
 import dto.Credential;
+import util.GlobalData;
 
 public class LoginController {
 	private Logger log = Logger.getRootLogger();
@@ -26,6 +26,7 @@ public class LoginController {
 	void process(HttpServletRequest req, HttpServletResponse resp, 
 			HashMap<String, String> loggedEmployees, HashMap<String, String> loggedFManagers) throws IOException {
 		String method = req.getMethod();
+		System.out.println("Request Method: " + method);
 		switch (method) {
 		case "GET":
 			//processGet(req, resp);
@@ -73,15 +74,14 @@ public class LoginController {
 	private void processPost(HttpServletRequest req, HttpServletResponse resp, 
 			HashMap<String, String> loggedEmployees, HashMap<String, String> loggedFManagers) throws JsonParseException, JsonMappingException, IOException {
 		String uri = req.getRequestURI();
-		String context = "LeagueOfLegendsApi";
+		String context = "ERS";
 		uri = uri.substring(context.length() + 2, uri.length());
-		if ("users".equals(uri)) {
-			log.info("saving new user");
-		} else if ("users/login".equals(uri)) {
+		if ("login".equals(uri)) {
 			log.info("attempting to log in");
 			Credential cred = om.readValue(req.getReader(), Credential.class);
 			int roleID = GlobalData.userRoles.get(cred.getRole());
 			String session = req.getSession().getId();
+			System.out.println("Session: " + session);
 			if(!ud.verifyLogin(cred.getUsername(), cred.getPassword(), roleID)) {
 				resp.setStatus(403);
 			} else if ("FINANCE".equals(cred.getRole())){

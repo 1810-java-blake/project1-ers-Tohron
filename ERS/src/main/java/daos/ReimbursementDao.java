@@ -5,6 +5,7 @@ import java.util.List;
 import beans.Reimbursement;
 
 public interface ReimbursementDao {
+	public ReimbursementDao currentImplementation = new ReimbursementDaoJdbc();
 	
 	public List<Reimbursement> getAllReimbursements();
 	

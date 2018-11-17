@@ -28,4 +28,21 @@ public class ReimbursementTypeDaoJdbc implements ReimbursementTypeDao {
 		return null;
 	}
 
+	@Override
+	public String getType(int typeId) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM reimbursement_type WHERE reimb_type_id=?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, typeId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString("reimb_type");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

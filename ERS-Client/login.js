@@ -2,8 +2,9 @@ function login(event) {
   event.preventDefault();
   const username = document.getElementById('inputUsername').value;
   const password = document.getElementById('inputPassword').value;
-  const roleString = document.getElementById('inputRole').value;
-  const role;
+  const roleSelect = document.getElementById('inputRole');
+  const roleString = roleSelect.options [roleSelect.selectedIndex] .value;;
+  var role;
   if (roleString === "Finance Manager") {
       role = "FINANCE";
   } else {
@@ -26,6 +27,7 @@ function login(event) {
     credentials: 'include'
   })
     .then(res => {
+      console.log("Response: " + res);
       if (res.status === 200) {
         if (role === "FINANCE") {
           window.location = '../finance.html'

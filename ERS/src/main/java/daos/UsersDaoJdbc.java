@@ -26,8 +26,13 @@ public class UsersDaoJdbc implements UsersDao {
 		return null;
 	}
 
+	public int getRole(int userID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	public boolean verifyLogin(String username, String password, int role_id) {
-		String query = "SELECT ers_password, user_role_id FROM users WHERE username = ?";
+		String query = "SELECT ers_password, user_role_id FROM users WHERE ers_username = ?";
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, username);
@@ -44,13 +49,27 @@ public class UsersDaoJdbc implements UsersDao {
 		return false;
 	}
 
-	public int getRole(int userID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	public HashMap<Integer, User> getCurrentUsers() {
-		// TODO Auto-generated method stub
+		HashMap<Integer, User> curUsers = new HashMap<Integer, User>();
+		String query = "SELECT * FROM users";
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				User u = new User(rs.getInt("ers_users_id"),
+							rs.getString("ers_username"),
+							rs.getString("ers_password"),
+							rs.getString("user_first_name"),
+							rs.getString("user_last_name"),
+							rs.getString("user_email"),
+							rs.getInt("user_role_id"));
+				curUsers.put(rs.getInt("ers_users_id"), u);
+			}
+			return curUsers;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

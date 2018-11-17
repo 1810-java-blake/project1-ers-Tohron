@@ -11,7 +11,7 @@ import java.util.List;
 
 import beans.Reimbursement;
 import database.ConnectionUtil;
-import database.GlobalData;
+import util.GlobalData;
 
 public class ReimbursementDaoJdbc implements ReimbursementDao {
 

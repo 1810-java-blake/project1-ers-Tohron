@@ -1,38 +1,26 @@
-#holder {
-    
-    max-width: 600px;
-    margin-top: 40px;
-}
-#innerholder {
-    height:80px;
-    max-width:568px;
+
+#e-table {
+    width: 800px;
 }
 
-#table0 {
-    background-color: #cccccc;
-    border: 1px solid black;
-}
-
-#t-header {
-    width:350px;
-    text-align: center;
-}
 
 .c1 {
-    width:50px;
+    width:100px;
+}
+.c2 {
+    width:120px;
+}
+.c3 {
+    width:190px;
+}
+.c4 {
+    width:190px;
+}
+.c5 {
+    width:120px;
 }
 
-#table {
-    border-collapse: collapse;
-}
 
-th {
-    border: 1px solid black;
-}
-
-table, td {
-    border: 1px solid black;
-}
 
 #form-signin {
     min-width: 250px;
@@ -40,4 +28,20 @@ table, td {
 
 .outercell {
     border: 0px solid black;
+}
+
+.table-fixed thead {
+    width: 97%;
+}
+.table-fixed tbody {
+    height: 430px;
+    overflow-y: auto;
+    width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed td, .table-fixed th {
+    display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+    float: left;
+    border-bottom-width: 0;
 }

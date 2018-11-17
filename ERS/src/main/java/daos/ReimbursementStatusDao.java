@@ -9,4 +9,6 @@ public interface ReimbursementStatusDao {
 	 * @return A way to get a given status using its ID.
 	 */
 	public HashMap<String, Integer> getAllReimbursementStatuses();
+	
+	public String getStatus(int statusId);
 }

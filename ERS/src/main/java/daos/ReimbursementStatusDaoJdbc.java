@@ -28,4 +28,19 @@ public class ReimbursementStatusDaoJdbc implements ReimbursementStatusDao {
 		return null;
 	}
 
+	public String getStatus(int statusId) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM reimbursement_status WHERE reimb_status_id=?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, statusId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getString("reimb_status");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

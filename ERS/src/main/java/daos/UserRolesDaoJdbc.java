@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import database.ConnectionUtil;
-import database.GlobalData;
+import util.GlobalData;
 
 public class UserRolesDaoJdbc implements UserRolesDao {
 	
@@ -18,7 +18,7 @@ public class UserRolesDaoJdbc implements UserRolesDao {
 			ResultSet rs = stmt.executeQuery();
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			while (rs.next()) {
-				map.put(rs.getString("user_role"), rs.getInt("user_role_id"));
+				map.put(rs.getString("user_role"), rs.getInt("ers_user_role_id"));
 			}
 			return map;
 		} catch (SQLException e) {
