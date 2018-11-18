@@ -3,6 +3,7 @@ package daos;
 import java.util.List;
 
 import beans.Reimbursement;
+import dto.NewReimbursement;
 
 public interface ReimbursementDao {
 	public ReimbursementDao currentImplementation = new ReimbursementDaoJdbc();
@@ -11,7 +12,7 @@ public interface ReimbursementDao {
 	
 	public List<Reimbursement> getReimbursementsWithStatus(int statusId);
 	
-	public List<Reimbursement> getUserReimbursements(int userId);
+	public List<Reimbursement> getUserReimbursements(String username);
 	
 	/**
 	 * Submits a reimbursement with the given info to the database
@@ -19,7 +20,7 @@ public interface ReimbursementDao {
 	 * 			to the database as a reimbursement
 	 * @return true if database operation completed, false otherwise
 	 */
-	public boolean submitReimbursement(Reimbursement r);
+	public boolean submitReimbursement(NewReimbursement r, String username);
 	
 	/**
 	 * Approves the reimbursement with the given ID.

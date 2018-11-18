@@ -41,36 +41,7 @@ public class LoginController {
 			break;
 		}
 	}
-/*
-	private void processGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		/*
-		String uri = req.getRequestURI();
-		String context = "LeagueOfLegendsApi";
-		uri = uri.substring(context.length() + 2, uri.length());
-		String[] uriArray = uri.split("/");
-		System.out.println(Arrays.toString(uriArray));
-		if (uriArray.length == 1) {
-			log.info("retreiving all users");
-			List<User> users = ud.g
-			ResponseMapper.convertAndAttach(users, resp);
-			return;
-		} else if (uriArray.length == 2) {
-			try {
-				int id = Integer.parseInt(uriArray[1]);
-				log.info("retreiving user with id: " + id);
-				AppUser user = us.findById(id);
-				ResponseMapper.convertAndAttach(user, resp);
-				return;
-			} catch (NumberFormatException e) {
-				resp.setStatus(400);
-				return;
-			}
-		} else {
-			resp.setStatus(404);
-		}
-		*-/
-	}
-*/
+	
 	private void processPost(HttpServletRequest req, HttpServletResponse resp, 
 			HashMap<String, String> loggedEmployees, HashMap<String, String> loggedFManagers) throws JsonParseException, JsonMappingException, IOException {
 		String uri = req.getRequestURI();

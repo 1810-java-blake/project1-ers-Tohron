@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
+	public static Connection curConnection = null;
+	
 	static {
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -23,7 +25,9 @@ public class ConnectionUtil {
 		String password = System.getenv("db_password");
 
 		String dataSource = "jdbc:postgresql://" + url + ":" + port + "/" + dbName + "?currentSchema=" + dbSchema;
-
-		return DriverManager.getConnection(dataSource, "project1", "password");
+		if (curConnection == null) {
+			curConnection =  DriverManager.getConnection(dataSource, "project1", "password");
+		}
+		return curConnection;
 	}
 }

@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import beans.Reimbursement;
 import database.ConnectionUtil;
+import dto.NewReimbursement;
 import util.GlobalData;
 
 public class ReimbursementDaoJdbc implements ReimbursementDao {
@@ -59,12 +61,12 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	}
 
 	@Override
-	public List<Reimbursement> getUserReimbursements(int userId) {
+	public List<Reimbursement> getUserReimbursements(String username) {
 		ArrayList<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String query = "SELECT * FROM reimbursement WHERE reimb_author = ?";
 			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setInt(1, userId);
+			stmt.setInt(1, UsersDao.currentImplementation.getUserId(username));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Reimbursement r = new Reimbursement(rs.getInt("reimb_id"), rs.getDouble("reimb_amount"), 
@@ -81,18 +83,18 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	}
 
 	@Override
-	public boolean submitReimbursement(Reimbursement r) {
+	public boolean submitReimbursement(NewReimbursement r, String username) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String query = "INSERT INTO reimbursement (reimb_amount, reimb_submitted, reimb_description, "
-					+ "reimb_author, reimb_status_id, reimb_type_id) "
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
+					+ "reimb_author, reimb_type_id) "
+					+ "VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setDouble(1, r.getAmount());
-			stmt.setTimestamp(2, r.getSubmitted());
+			stmt.setTimestamp(2, new Timestamp(new Date().getTime()));
 			stmt.setString(3, r.getDescription());
-			stmt.setInt(4, r.getAuthor());
-			stmt.setInt(5, r.getStatusID());
-			stmt.setInt(6, r.getTypeID());
+			UsersDao ud = UsersDao.currentImplementation;
+			stmt.setInt(4, ud.getUserId(username));
+			stmt.setInt(5, GlobalData.reimbursementTypes.get(r.getType()));
 			int result = stmt.executeUpdate();
 			return result > 0; // true if row affected, false otherwise
 		} catch (SQLException e) {

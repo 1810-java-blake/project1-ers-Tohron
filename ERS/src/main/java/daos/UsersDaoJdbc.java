@@ -73,4 +73,21 @@ public class UsersDaoJdbc implements UsersDao {
 		return null;
 	}
 
+	@Override
+	public int getUserId(String username) {
+		String query = "SELECT ers_users_id FROM users WHERE ers_username=?";
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, username);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("ers_users_id");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

@@ -50,7 +50,7 @@ public class DispatcherServlet extends HttpServlet {
 				"Origin, Methods, Credentials, X-Requested-With, Content-Type, Accept");
 		resp.addHeader("Access-Control-Allow-Credentials", "true");
 		resp.setContentType("application/json");
-		//String session = req.getSession().getId();
+		String session = req.getSession().getId();
 		
 		
 		String uri = req.getRequestURI();
@@ -59,9 +59,9 @@ public class DispatcherServlet extends HttpServlet {
 		//log.debug("request made with uri: " + uri);
 		System.out.println("Received request with uri:" + uri);
 		if (uri.startsWith("employee")) {
-			ec.process(req, resp);
+			ec.process(req, resp, loggedEmployees.get(session));
 		} else if (uri.startsWith("finance")) {
-			fc.process(req, resp);
+			fc.process(req, resp, loggedFManagers.get(session));
 		} else if (uri.startsWith("login")) {
 			lc.process(req, resp, loggedEmployees, loggedFManagers);
 		} else {

@@ -18,6 +18,9 @@
 * Finance can filter requests by status (this updates the table)
 * Finance can use approve & reject functionality (this updates the table)
 
+BONUS:
+* User first & last name displayed on top-right after login
+
 Can servlet notify client of updates: Would need sockets - could just use periodic GET
 In which cases is session ID preserved: Session ID is tied to browser window
 Presentations are on Monday

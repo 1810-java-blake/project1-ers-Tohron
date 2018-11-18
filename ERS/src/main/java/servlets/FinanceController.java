@@ -23,7 +23,7 @@ public class FinanceController {
 	private ReimbursementDao rd = ReimbursementDao.currentImplementation;
 	private ObjectMapper om = new ObjectMapper();
 	
-	void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	void process(HttpServletRequest req, HttpServletResponse resp, String username) throws IOException {
 		String method = req.getMethod();
 		log.trace("request made to fincance controller with method: " + req.getMethod());
 		System.out.println("Request Method: " + method); // -------------- Method is also wrongly set to OPTIONS here!

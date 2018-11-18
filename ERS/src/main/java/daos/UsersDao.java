@@ -10,6 +10,9 @@ public interface UsersDao {
 	public String getFirstName(int userId);
 	public String getLastName(int userId);
 	public String getEmail(int userId);
+	
+	public int getUserId(String username);
+	
 	/**
 	 * Gets the given user's role
 	 * @param userID ID of the user to check for in the database
