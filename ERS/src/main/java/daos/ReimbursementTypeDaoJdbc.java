@@ -27,7 +27,24 @@ public class ReimbursementTypeDaoJdbc implements ReimbursementTypeDao {
 		
 		return null;
 	}
-
+	public HashMap<Integer, String> getAllRevReimbursementTypes() {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String query = "SELECT * FROM reimbursement_type";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			HashMap<Integer, String> map = new HashMap<Integer, String>();
+			while (rs.next()) {
+				map.put(rs.getInt("reimb_type_id"), rs.getString("reimb_type"));
+			}
+			return map;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	/*
 	@Override
 	public String getType(int typeId) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
@@ -44,5 +61,5 @@ public class ReimbursementTypeDaoJdbc implements ReimbursementTypeDao {
 		}
 		return null;
 	}
-
+	*/
 }

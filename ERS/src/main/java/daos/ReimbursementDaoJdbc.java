@@ -39,12 +39,48 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	}
 
 	@Override
-	public List<Reimbursement> getReimbursementsWithStatus(int statusId) {
+	public List<Reimbursement> getReimbursementsWithStatus(boolean showPending, boolean showApproved, boolean showRejected) {
 		ArrayList<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+		int bool_total = 0;
+		if (showPending)
+			bool_total++;
+		if (showApproved)
+			bool_total++;
+		if (showRejected)
+			bool_total++;
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "SELECT * FROM reimbursement WHERE reimb_status_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setInt(1, statusId);
+			String query;
+			PreparedStatement stmt;
+			if (showPending || showApproved || showRejected) {
+				if (bool_total == 3) {
+					query = "SELECT * FROM reimbursement";
+					stmt = conn.prepareStatement(query);
+				} else {
+					if (bool_total == 2) {
+						query = "SELECT * FROM reimbursement WHERE reimb_status_id!=?";
+						stmt = conn.prepareStatement(query);
+						if (!showPending) {
+							stmt.setNull(1, java.sql.Types.INTEGER);
+						} else if (!showApproved) {
+							stmt.setInt(1, GlobalData.reimbursementStatuses.get("APPROVED"));
+						} else {
+							stmt.setInt(1, GlobalData.reimbursementStatuses.get("REJECTED"));
+						}
+					} else {
+						query = "SELECT * FROM reimbursement WHERE reimb_status_id=?";
+						stmt = conn.prepareStatement(query);
+						if (showPending) {
+							stmt.setNull(1, java.sql.Types.INTEGER);
+						} else if (showApproved) {
+							stmt.setInt(1, GlobalData.reimbursementStatuses.get("APPROVED"));
+						} else {
+							stmt.setInt(1, GlobalData.reimbursementStatuses.get("REJECTED"));
+						}
+					}
+				}
+			} else {
+				return reimbursements;
+			}
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Reimbursement r = new Reimbursement(rs.getInt("reimb_id"), rs.getDouble("reimb_amount"), 
@@ -89,11 +125,12 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 					+ "reimb_author, reimb_type_id) "
 					+ "VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setDouble(1, r.getAmount());
+			stmt.setDouble(1, Double.parseDouble( r.getAmount()));
 			stmt.setTimestamp(2, new Timestamp(new Date().getTime()));
 			stmt.setString(3, r.getDescription());
 			UsersDao ud = UsersDao.currentImplementation;
 			stmt.setInt(4, ud.getUserId(username));
+			//System.out.println("GDR: " + GlobalData.reimbursementTypes); // not null
 			stmt.setInt(5, GlobalData.reimbursementTypes.get(r.getType()));
 			int result = stmt.executeUpdate();
 			return result > 0; // true if row affected, false otherwise

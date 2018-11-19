@@ -25,7 +25,7 @@ public class Reimbursement {
 	private String status;
 	private String type;
 	
-	private SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy h:mm");
+	private SimpleDateFormat sdf = new SimpleDateFormat("M/dd/yyyy h:mm a");
 	
 	public Reimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description, 
 			int authorID, int resolverID, int statusID, int typeID) {
@@ -50,7 +50,7 @@ public class Reimbursement {
 		} else {
 			status = "PENDING";
 		}
-		type = ReimbursementTypeDao.currentImplementation.getType(typeID);
+		type = GlobalData.reimbursementRevTypes.get(typeID);
 		submittedString = sdf.format(new Date(submitted.getTime()));
 		if (resolved != null) {
 			resolvedString = sdf.format(new Date(resolved.getTime()));
@@ -75,15 +75,23 @@ public class Reimbursement {
 		return resolved;
 	}
 
+	public String getSubmittedString() {
+		return submittedString;
+	}
+
+	public String getResolvedString() {
+		return resolvedString;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
-	public int getAuthor() {
+	public int getAuthorID() {
 		return authorID;
 	}
 
-	public int getResolver() {
+	public int getResolverID() {
 		return resolverID;
 	}
 
@@ -94,12 +102,26 @@ public class Reimbursement {
 	public int getTypeID() {
 		return typeID;
 	}
-	
-	public String getType() {
-		return type;
+
+	public String getAuthor() {
+		return author;
 	}
+
+	public String getResolver() {
+		return resolver;
+	}
+
 	public String getStatus() {
 		return status;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public SimpleDateFormat getSdf() {
+		return sdf;
+	}
+
 	
 }

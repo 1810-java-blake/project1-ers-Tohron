@@ -64,6 +64,7 @@ public class EmployeeController {
 			if (userReimbursements.size() > 0) {
 				//System.out.println("Type: " + userReimbursements.get(0).getType());
 				//System.out.println("Status: " + userReimbursements.get(0).getStatus());
+				System.out.println("Submitted: " + userReimbursements.get(0).getSubmittedString());
 			}
 			ResponseMapper.convertAndAttach(userReimbursements, resp);
 			return;

@@ -1,25 +1,28 @@
-* --------------------------- Make IDs auto-incrementing (Done on reimbursements?)
-* (Done?) Finalize list retrieval methods
-* (WIP) Can send reimbursement lists in response to Employee and (filtered) Finance GET requests
-* (Done?) Finalize reimbursement creation & update methods
-* (WIP) Can respond to creation & update POST requests (with confirmation of success/failure)
-* (Done) Can respond to login POST request (with confirmation of success/failure)
-* (WIP) Create .sql file for automatically creating relevant tables and filling them with info
 
-* (WIP) Format (non-React) pages for login, employee, and finance (employee has fields, buttons for new, finance has dropdown filter & approve/deny buttons)
+* (Done) Finalize list retrieval methods
+* (Done?) Can send reimbursement lists in response to Employee and (filtered) Finance GET requests
+* (Done?) Finalize reimbursement creation & update methods
+* (Done?) Can respond to creation & update POST requests (with confirmation of success/failure)
+* (Done) Can respond to login POST request (with confirmation of success/failure)
+* (Done) Create .sql file for automatically creating relevant tables and filling them with info
+
+* (Done) Format (non-React) pages for login, employee, and finance (employee has fields, buttons for new, finance has dropdown filter & approve/deny buttons)
 * (Done) Login button forwards to employee or finance (based on selected dropdown option)
 * (Done) Login uses required fields, and sends POST request
-* (WIP) Employee and finance servlets check for logged-in session
-* (WIP) Employee and finance tables are automatically filled with reimbursement data
+* (Done?) Employee and finance servlets check for logged-in session
+* (Done?) Employee and finance tables are automatically filled with reimbursement data
 
-* (WIP) Selecting row in Employee table fills side fields with all reimbursement data
-* Selecting row in Finance table enables approve & reject buttons
-* Employee can add a new reimbursement request (blanks fields, enables buttons to confirm & cancel) (this updates the table)
-* Finance can filter requests by status (this updates the table)
-* Finance can use approve & reject functionality (this updates the table)
+* (Done) Selecting row in Employee table fills side fields with all reimbursement data
+* (Done) Selecting row in Finance table enables approve & reject buttons
+* (Done?) Employee can add a new reimbursement request (blanks fields, enables buttons to confirm & cancel) (this updates the table)
+* (Done?) Finance can filter requests by status (this updates the table)
+* (Done?) Finance can use approve & reject functionality (this updates the table)
 
 BONUS:
-* User first & last name displayed on top-right after login
+* (WIP) Username displayed on top-right after login
+* (WIP) Can log out
+* Add aesthetic features
+* (WIP) Add "Logging In..." label while waiting
 
 Can servlet notify client of updates: Would need sockets - could just use periodic GET
 In which cases is session ID preserved: Session ID is tied to browser window

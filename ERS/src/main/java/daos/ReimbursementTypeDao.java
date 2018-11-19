@@ -9,6 +9,7 @@ public interface ReimbursementTypeDao {
 	 * @return A way to get a given type using its ID.
 	 */
 	public HashMap<String, Integer> getAllReimbursementTypes();
+	public HashMap<Integer, String> getAllRevReimbursementTypes();
 	
-	public String getType(int typeId);
+	//public String getType(int typeId);
 }

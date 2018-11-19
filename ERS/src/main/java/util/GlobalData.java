@@ -15,6 +15,8 @@ public class GlobalData {
 			= ReimbursementStatusDao.currentImplementation.getAllReimbursementStatuses();
 	public static final HashMap<String, Integer> reimbursementTypes 
 			= ReimbursementTypeDao.currentImplementation.getAllReimbursementTypes();
+	public static final HashMap<Integer, String> reimbursementRevTypes 
+		= ReimbursementTypeDao.currentImplementation.getAllRevReimbursementTypes();
 	public static final HashMap<String, Integer> userRoles 
 			= UserRolesDao.currentImplementation.getAllUserRoles();
 	

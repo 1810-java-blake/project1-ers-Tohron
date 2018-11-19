@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import daos.UserRolesDao;
 import daos.UsersDao;
 import dto.Credential;
 import util.GlobalData;
@@ -50,6 +51,7 @@ public class LoginController {
 		if ("login".equals(uri)) {
 			log.info("attempting to log in");
 			Credential cred = om.readValue(req.getReader(), Credential.class);
+			System.out.println("Role: " + cred.getRole());
 			int roleID = GlobalData.userRoles.get(cred.getRole());
 			String session = req.getSession().getId();
 			System.out.println("Session: " + session);

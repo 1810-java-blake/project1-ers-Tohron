@@ -10,7 +10,7 @@ public interface ReimbursementDao {
 	
 	public List<Reimbursement> getAllReimbursements();
 	
-	public List<Reimbursement> getReimbursementsWithStatus(int statusId);
+	public List<Reimbursement> getReimbursementsWithStatus(boolean showPending, boolean showApproved, boolean showRejected);
 	
 	public List<Reimbursement> getUserReimbursements(String username);
 	

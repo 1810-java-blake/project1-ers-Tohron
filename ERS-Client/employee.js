@@ -39,10 +39,14 @@ document.addEventListener("DOMContentLoaded", function() {
     button1 = document.getElementById("button1");
     button_cancel = document.getElementById("button_cancel");
     button_cancel.disabled = true;
-    //loadReimbursements();
+    update();
 });
 
 function create() {
+    if (selected_line) {
+        div1 = document.getElementById(selected_line);
+        div1.style.backgroundColor="#ffffff";
+    }
     selected_line = null;
     console.log("Create Call");
     if (button_cancel.disabled == false) { // ready to submit
@@ -50,12 +54,12 @@ function create() {
         description = d_field.value;
         type = t_select.value;
         const reimb_dat = {
-            id,
-            amount, 
+            amount,
             description,
             type
         }
-        console.log(reimb_dat);
+        console.log("Data Sent: " + reimb_dat);
+        console.log("Data String: " + JSON.stringify(reimb_dat))
         
         fetch('http://localhost:8080/ERS/employee/add_reimb', {
         method: 'POST',
@@ -107,22 +111,8 @@ function cancel() {
     t_select.selectedIndex = 0;
 }
 
-function loadReimbursements() {
-    table.innerHtml = reimb_lines.join("");
-}
 
 function clickHandler(event, id, index) {
-    // prevent event from continuing
-    // to further elements
-    // not recommended!
-    // event.stopPropagation();
-
-    //console.log(`target: ${event.target.id}`);
-
-    // stop any default browser behavior
-    // that's already on this event
-    // event.preventDefault();
-
     // Deselects last line
     var div1;
     if (selected_line) {
@@ -141,23 +131,20 @@ function clickHandler(event, id, index) {
     a_field.value  = reimbursements[index].amount;
     d_field.value  = reimbursements[index].description;
     t_select.value  = reimbursements[index].type;
-
-
-
-    
 }
+      
 function update() {
-    fetch('http://localhost:8080/ERS/employee', { // Program will eventually use session ID to determine employee ID
+    fetch('http://localhost:8080/ERS/employee', {
     credentials: 'include'
     })
     .then(resp => resp.json())
     .then(data => {
         const e_table = document.getElementById('e-table');
         reimbursements = data;
-        // --------------- Need way to convert nulls and longs into strings!!!
+        
         reimb_lines = reimbursements.map((r, index) => `
         <tr id="r${r.id}" onclick="clickHandler(event, 'r${r.id}', ${index})">
-            <td class="c1">$${r.amount}</td>  <td class="c2">${r.type}</td> <td class="c3">${r.submitted}</td> <td class="c4">${r.resolved}</td> <td class="c5">${r.status}</td>
+            <td class="c1">$${r.amount}</td>  <td class="c2">${r.type}</td> <td class="c3">${r.submittedString}</td> <td class="c4">${r.resolvedString}</td> <td class="c5">${r.status}</td>
         </tr>
         `);
         e_table.innerHTML = `<thead>
@@ -166,7 +153,7 @@ function update() {
         </tr> </thead><tbody>` + reimb_lines.join('') + "</tbody>";
         
         
+    }).catch(err => {
+        console.log("Table Retrieval Issue: " + err);
     })
 }
-
-update();

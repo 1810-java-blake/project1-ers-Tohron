@@ -3,12 +3,15 @@ function login(event) {
   const username = document.getElementById('inputUsername').value;
   const password = document.getElementById('inputPassword').value;
   const roleSelect = document.getElementById('inputRole');
-  const roleString = roleSelect.options [roleSelect.selectedIndex] .value;;
+  const roleString = roleSelect.options [roleSelect.selectedIndex] .value;
+  //console.log(roleSelect.options [roleSelect.selectedIndex] .value); // is e or f
   var role;
-  if (roleString === "Finance Manager") {
+  if (roleString === "f") {
       role = "FINANCE";
+      console.log("Logging in as finance...");
   } else {
       role = "EMPLOYEE";
+      console.log("Logging in as employee...");
   }
 
   const cred = {

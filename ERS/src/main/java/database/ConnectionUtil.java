@@ -25,9 +25,7 @@ public class ConnectionUtil {
 		String password = System.getenv("db_password");
 
 		String dataSource = "jdbc:postgresql://" + url + ":" + port + "/" + dbName + "?currentSchema=" + dbSchema;
-		if (curConnection == null) {
-			curConnection =  DriverManager.getConnection(dataSource, "project1", "password");
-		}
-		return curConnection;
+		
+		return DriverManager.getConnection(dataSource, "project1", "password");
 	}
 }
