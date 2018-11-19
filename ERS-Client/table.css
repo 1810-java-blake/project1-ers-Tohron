@@ -45,3 +45,9 @@
 textarea {
     resize: none;
  }
+
+#form-logout {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
