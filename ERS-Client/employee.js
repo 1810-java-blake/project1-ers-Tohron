@@ -48,11 +48,12 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => {
         const u_label = document.getElementById('user_label');
         const username = data;
-        u_label.value = username;
+        u_label.innerHTML = "Logged in as: " + username;
         
     });
 
     update();
+    setInterval(update, 10000);
 });
 
 function create() {
@@ -84,6 +85,7 @@ function create() {
         })
         .then(res => {
             console.log("Posted: " + res);
+            update();
         })
         .catch(err => {
             console.log(err);
@@ -98,7 +100,6 @@ function create() {
         a_field.value  = "";
         d_field.value  = "";
         t_select.selectedIndex = 0;
-        update();
     } else { // not ready to submit
         button1.innerHTML = "Submit Reimbursement";
         a_field.disabled = false;
@@ -143,7 +144,10 @@ function clickHandler(event, id, index) {
     // fills right side with data for selected line
     a_field.value  = reimbursements[index].amount;
     d_field.value  = reimbursements[index].description;
-    t_select.value  = reimbursements[index].type;
+    //console.log("Found type: " + reimbursements[index].type + ", compare: " + t_select.value);
+    t_select.value = reimbursements[index].type;
+    //const start = reimbursements[index].type.substring(0,1).toLowerCase();
+    //t_select.value  = start;
 }
       
 function update() {

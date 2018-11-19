@@ -44,12 +44,14 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(resp => resp.json())
     .then(data => {
         const u_label = document.getElementById('user_label');
+        console.log("Got User Data: " + data);
         const username = data;
-        u_label.value = username;
+        u_label.innerHTML = "Logged in as: " + username;
         
     });
     //loadReimbursements();
     update();
+    setInterval(update, 10000);
 });
 
 function filter() {
@@ -83,27 +85,31 @@ function clickHandler(event, id, index) {
 
 function approve() {
     var id = selected_line.substring(1);
-    fetch('http://localhost:8080/ERS/finance/approve' + id, {
+    fetch('http://localhost:8080/ERS/finance/approve/' + id, {
     method: 'GET',
     credentials: 'include'
+    })
+    .then(res => {
+        update();
     });
     
     button_a.disabled = true;
     button_d.disabled = true;
     clear();
-    update();
 }
 function deny() {
     var id = selected_line.substring(1);
-    fetch('http://localhost:8080/ERS/finance/deny' + id, {
+    fetch('http://localhost:8080/ERS/finance/deny/' + id, {
     method: 'GET',
     credentials: 'include'
+    })
+    .then(res => {
+        update();
     });
     
     button_a.disabled = true;
     button_d.disabled = true;
     clear();
-    update();
 }
 
 function clear() {
@@ -116,6 +122,7 @@ function clear() {
     a_field.value  = "";
     r_field.value  = "";
     d_field.value  = "";
+    const e_table = document.getElementById('e-table');
     e_table.innerHTML = `<thead>
         <tr>
             <th class="c1">Amount</th> <th class="c2">Type</th> <th class="c3">Submitted</th> <th class="c4">Resolved</th> <th class="c5">Status</th>

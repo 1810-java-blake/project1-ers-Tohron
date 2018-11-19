@@ -130,7 +130,8 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 			stmt.setString(3, r.getDescription());
 			UsersDao ud = UsersDao.currentImplementation;
 			stmt.setInt(4, ud.getUserId(username));
-			//System.out.println("GDR: " + GlobalData.reimbursementTypes); // not null
+			System.out.println("GDR: " + GlobalData.reimbursementTypes);
+			System.out.println("Type: " + r.getType());
 			stmt.setInt(5, GlobalData.reimbursementTypes.get(r.getType()));
 			int result = stmt.executeUpdate();
 			return result > 0; // true if row affected, false otherwise
@@ -143,11 +144,12 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	@Override
 	public boolean approveReimbursement(int reimbID, int resolverID) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "UPDATE reimbursement SET reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ?";
+			String query = "UPDATE reimbursement SET reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ? WHERE reimb_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
 			stmt.setInt(2, resolverID);
 			stmt.setInt(3, GlobalData.reimbursementStatuses.get("APPROVED"));
+			stmt.setInt(4, reimbID);
 			int result = stmt.executeUpdate();
 			return result > 0; // true if row affected, false otherwise
 		} catch (SQLException e) {
@@ -159,11 +161,12 @@ public class ReimbursementDaoJdbc implements ReimbursementDao {
 	@Override
 	public boolean denyReimbursement(int reimbID, int resolverID) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
-			String query = "UPDATE reimbursement SET reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ?";
+			String query = "UPDATE reimbursement SET reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ? WHERE reimb_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
 			stmt.setInt(2, resolverID);
 			stmt.setInt(3, GlobalData.reimbursementStatuses.get("REJECTED"));
+			stmt.setInt(4, reimbID);
 			int result = stmt.executeUpdate();
 			return result > 0; // true if row affected, false otherwise
 		} catch (SQLException e) {

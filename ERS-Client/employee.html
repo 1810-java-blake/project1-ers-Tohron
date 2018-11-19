@@ -21,7 +21,7 @@
 <body>
     <form id="form-logout" onsubmit="logout(event)">
         <label id="user_label">Logged in as: -----</label>
-        <button id="button_l" type="submit" >Log Out</button>
+        <button id="button_l" type="button" onclick="logout()">Log Out</button>
     </form>
     <table id="content_table">
         <tr><td>
@@ -47,10 +47,10 @@
                 <textarea id="inputDescription" rows="4" cols="50"></textarea>
                 <label id="t_label">Reimbursement Type</label>
                 <select id="inputType">
-                    <option selected="selected" value="b">BUSINESS</option>
-                    <option value="t">TRAVEL</option>
-                    <option value="p">PARKING</option>
-                    <option value="o">OTHER</option>
+                    <option selected="selected" value="BUSINESS">BUSINESS</option>
+                    <option value="TRAVEL">TRAVEL</option>
+                    <option value="PARKING">PARKING</option>
+                    <option value="OTHER">OTHER</option>
                 </select>
                 
                 <button id="button1" class="btn btn-lg btn-primary btn-block" type="button" onclick="create()">Create Reimbursement</button>
