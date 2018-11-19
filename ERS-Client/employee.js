@@ -39,6 +39,19 @@ document.addEventListener("DOMContentLoaded", function() {
     button1 = document.getElementById("button1");
     button_cancel = document.getElementById("button_cancel");
     button_cancel.disabled = true;
+
+    fetch('http://localhost:8080/ERS/employee/getUser', {
+    method: 'GET',
+    credentials: 'include'
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        const u_label = document.getElementById('user_label');
+        const username = data;
+        u_label.value = username;
+        
+    });
+
     update();
 });
 
@@ -155,5 +168,13 @@ function update() {
         
     }).catch(err => {
         console.log("Table Retrieval Issue: " + err);
-    })
+    });
+}
+
+function logout() {
+    fetch('http://localhost:8080/ERS/e_logout', {
+    method: 'GET',
+    credentials: 'include'
+    });
+    window.location = '../login.html';
 }

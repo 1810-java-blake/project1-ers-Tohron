@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import util.GlobalData;
+import util.ResponseMapper;
 
 /**
  * Responds to request to show past reimbursements,
@@ -64,6 +65,10 @@ public class DispatcherServlet extends HttpServlet {
 			fc.process(req, resp, loggedFManagers.get(session));
 		} else if (uri.startsWith("login")) {
 			lc.process(req, resp, loggedEmployees, loggedFManagers);
+		} else if (uri.startsWith("e_logout")) {
+			loggedEmployees.remove(session);
+		} else if (uri.startsWith("f_logout")) {
+			loggedFManagers.remove(session);
 		} else {
 			resp.setStatus(404);
 		}

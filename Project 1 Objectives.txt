@@ -19,10 +19,10 @@
 * (Done?) Finance can use approve & reject functionality (this updates the table)
 
 BONUS:
-* (WIP) Username displayed on top-right after login
-* (WIP) Can log out
+* (Done?) Username displayed on top-right after login
+* (Done?) Can log out
 * Add aesthetic features
-* (WIP) Add "Logging In..." label while waiting
+* (Done?) Add "Logging In..." label while waiting
 
 Can servlet notify client of updates: Would need sockets - could just use periodic GET
 In which cases is session ID preserved: Session ID is tied to browser window

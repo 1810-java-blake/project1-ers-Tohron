@@ -36,6 +36,18 @@ document.addEventListener("DOMContentLoaded", function() {
     check_fp = document.getElementById("check_fp");
     check_fa = document.getElementById("check_fa");
     check_fr = document.getElementById("check_fr");
+
+    fetch('http://localhost:8080/ERS/finance/getUser', {
+    method: 'GET',
+    credentials: 'include'
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        const u_label = document.getElementById('user_label');
+        const username = data;
+        u_label.value = username;
+        
+    });
     //loadReimbursements();
     update();
 });
@@ -74,7 +86,7 @@ function approve() {
     fetch('http://localhost:8080/ERS/finance/approve' + id, {
     method: 'GET',
     credentials: 'include'
-    })
+    });
     
     button_a.disabled = true;
     button_d.disabled = true;
@@ -86,7 +98,7 @@ function deny() {
     fetch('http://localhost:8080/ERS/finance/deny' + id, {
     method: 'GET',
     credentials: 'include'
-    })
+    });
     
     button_a.disabled = true;
     button_d.disabled = true;
@@ -140,9 +152,16 @@ function update() {
         </tr> </thead><tbody>` + reimb_lines.join('') + "</tbody>";
         
         
-    })
+    });
 }
 
+function logout() {
+    fetch('http://localhost:8080/ERS/f_logout', {
+    method: 'GET',
+    credentials: 'include'
+    });
+    window.location = '../login.html';
+}
 
 /*
 const reimb_res = {

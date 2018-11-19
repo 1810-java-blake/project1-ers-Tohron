@@ -73,6 +73,8 @@ public class FinanceController {
 			} else if ("deny".equals(uriArray[1])) {
 				ReimbursementDao.currentImplementation.denyReimbursement(Integer.parseInt(uriArray[2]), UsersDao.currentImplementation.getUserId(username));
 			}
+		} else if (uriArray.length == 2) {
+			ResponseMapper.convertAndAttach(username, resp);
 		}
 		else {
 			resp.setStatus(404);

@@ -68,6 +68,8 @@ public class EmployeeController {
 			}
 			ResponseMapper.convertAndAttach(userReimbursements, resp);
 			return;
+		} else if (uriArray.length == 2) {
+			ResponseMapper.convertAndAttach(username, resp);
 		} else {
 			resp.setStatus(404);
 			return;
